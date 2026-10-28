@@ -120,12 +120,18 @@ Invoke-RestMethod -Method POST -Uri http://localhost:8038/api/registrations `
 
 ## Vulnerability Scan Results (Stage 3)
 
-<!-- Updated after Stage 3 is complete -->
+| Image | Base Image | CRITICAL | HIGH | Size |
+|-------|-----------|----------|------|------|
+| `fest-backend:0.1` | `python:3.9` | **234** | **2243** | 1.61 GB |
+| `fest-backend:0.2` | `python:3.12-slim` | **0** | **49** | 222 MB |
 
-| Image | Base | CRITICAL | HIGH | Size |
-|-------|------|----------|------|------|
-| `fest-backend:0.1` | python:3.9 | _TBD_ | _TBD_ | _TBD_ |
-| `fest-backend:0.2` | python:3.12-slim | _TBD_ | _TBD_ | _TBD_ |
+> ✅ `trivy image --severity CRITICAL --ignore-unfixed --exit-code 1 fest-backend:0.2` exits with **code 0** — no CRITICAL vulnerabilities with available fixes.
+
+**Fixes applied:**
+- Base image: `python:3.9` → `python:3.12-slim` (eliminates ~2400 OS-level CVEs)
+- `Flask 2.2.2` → `Flask 3.1.1` (fixes CVE-2023-30861)
+- `Werkzeug 2.2.2` → `Werkzeug 3.1.9` (fixes CVE-2023-25577, CVE-2024-34069)
+- Added non-root user `appuser` (UID 1001)
 
 Full reports: [`reports/trivy-before.txt`](reports/trivy-before.txt) | [`reports/trivy-after.txt`](reports/trivy-after.txt)
 

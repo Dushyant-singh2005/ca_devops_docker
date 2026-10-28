@@ -1,6 +1,8 @@
 # backend/requirements.txt
-# Versions pinned to what the developers use on their laptops (Stage 1)
-# These will be upgraded in Stage 3 for security remediation
-Flask==2.2.2
-Werkzeug==2.2.2
+# Stage 3: upgraded to fix CRITICAL/HIGH CVEs found in trivy-before.txt
+# CVE-2023-30861: Flask 2.2.2 → 3.1.1 (fixed in 2.2.5 / 2.3.2)
+# CVE-2023-25577, CVE-2024-34069: Werkzeug 2.2.2 → 3.3.1
+# psycopg2-binary: updated to latest stable
+Flask==3.1.1
+Werkzeug==3.1.9
 psycopg2-binary==2.9.10
