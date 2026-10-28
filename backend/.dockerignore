@@ -1,0 +1,32 @@
+# Exclude Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Exclude virtual environments
+.venv/
+venv/
+env/
+
+# Exclude local environment files (secrets)
+.env
+*.env
+
+# Exclude test files
+tests/
+test_*.py
+
+# Exclude documentation and markdown
+*.md
+README*
+
+# Exclude Git metadata
+.git/
+.gitignore
+
+# Exclude editor configs
+.vscode/
+.idea/
+*.swp
+*.swo

@@ -1,0 +1,34 @@
+# =============================================================
+# FestPass — .gitignore
+# =============================================================
+
+# --- SECRETS (NEVER COMMIT) ---
+.env
+*.key
+cosign.key
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+*.log
+
+# --- Assessment working files ---
+task.md

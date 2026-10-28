@@ -1,0 +1,6 @@
+# backend/requirements.txt
+# Versions pinned to what the developers use on their laptops (Stage 1)
+# These will be upgraded in Stage 3 for security remediation
+Flask==2.2.2
+Werkzeug==2.2.2
+psycopg2-binary==2.9.10
