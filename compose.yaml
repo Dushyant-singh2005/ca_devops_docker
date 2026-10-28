@@ -1,0 +1,72 @@
+# FestPass — Docker Compose three-tier stack
+# REGNO: 202401100200138 | PORT: 8038
+# Networks: frontend-backend (frontend+backend), backend-database (backend+db)
+# Volume: postgres_data (persists registrations across restarts)
+
+services:
+
+  # ── DATABASE ──────────────────────────────────────────────
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: festpass
+      POSTGRES_USER: festpass
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend-database
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U festpass -d festpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  # ── BACKEND ───────────────────────────────────────────────
+  backend:
+    build: ./backend
+    environment:
+      REGNO: "202401100200138"
+      APP_VERSION: "dev"
+      DB_HOST: db
+      DB_NAME: festpass
+      DB_USER: festpass
+      DB_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - frontend-backend
+      - backend-database
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ── FRONTEND ──────────────────────────────────────────────
+  frontend:
+    image: nginx:1.30-alpine
+    ports:
+      - "8038:80"
+    volumes:
+      - ./frontend/index.html:/usr/share/nginx/html/index.html:ro
+      - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - frontend-backend
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+# ── NETWORKS ──────────────────────────────────────────────────
+# frontend-backend: frontend + backend can communicate
+# backend-database: backend + db can communicate
+# frontend CANNOT reach db directly (not on backend-database network)
+networks:
+  frontend-backend:
+    driver: bridge
+  backend-database:
+    driver: bridge
+
+# ── VOLUMES ───────────────────────────────────────────────────
+volumes:
+  postgres_data:
+    driver: local
