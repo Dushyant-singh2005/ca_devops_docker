@@ -26,10 +26,10 @@ services:
 
   # ── BACKEND ───────────────────────────────────────────────
   backend:
-    build: ./backend
+    image: dushyantsingh16/fest-backend:1.0.0
     environment:
       REGNO: "202401100200138"
-      APP_VERSION: "dev"
+      APP_VERSION: "1.0.0"
       DB_HOST: db
       DB_NAME: festpass
       DB_USER: festpass

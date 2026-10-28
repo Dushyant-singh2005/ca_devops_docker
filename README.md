@@ -7,8 +7,8 @@
 | **Name** | Dushyant Singh |
 | **REGNO** | 202401100200138 |
 | **PORT** | 8038 (80 + last two digits of REGNO: 38) |
-| **Docker Hub Username** | dushyantsingh |
-| **Docker Hub Repository** | https://hub.docker.com/r/dushyantsingh/fest-backend |
+| **Docker Hub Username** | dushyantsingh16 |
+| **Docker Hub Repository** | https://hub.docker.com/r/dushyantsingh16/fest-backend |
 | **GitHub Repository** | https://github.com/Dushyant-singh2005/ca_devops_docker |
 
 ---
@@ -141,8 +141,8 @@ Full reports: [`reports/trivy-before.txt`](reports/trivy-before.txt) | [`reports
 
 | Tag | Digest |
 |-----|--------|
-| `dushyantsingh/fest-backend:1.0.0` | _TBD after push_ |
-| `dushyantsingh/fest-backend:1.0` | _TBD after push_ |
+| `dushyantsingh16/fest-backend:1.0.0` | `sha256:26373b475cc22f3c79452bbf362116665949ed1a7b3b6bf9518207ac334c33e4` |
+| `dushyantsingh16/fest-backend:1.0` | same digest (same image, different tag) |
 
 ---
 
@@ -150,17 +150,17 @@ Full reports: [`reports/trivy-before.txt`](reports/trivy-before.txt) | [`reports
 
 ### Sign the 1.0.0 image by digest
 ```bash
-cosign sign --key cosign.key dushyantsingh/fest-backend@sha256:<digest>
+cosign sign --key cosign.key dushyantsingh16/fest-backend@sha256:<digest>
 ```
 
 ### Verify the signed image
 ```bash
-cosign verify --key cosign.pub dushyantsingh/fest-backend@sha256:<digest>
+cosign verify --key cosign.pub dushyantsingh16/fest-backend@sha256:<digest>
 ```
 
 ### Unsigned 1.0.1 — expected rejection
 ```bash
-cosign verify --key cosign.pub dushyantsingh/fest-backend:1.0.1
+cosign verify --key cosign.pub dushyantsingh16/fest-backend:1.0.1
 # Expected: Error — no valid signatures found (this is correct behaviour)
 ```
 
